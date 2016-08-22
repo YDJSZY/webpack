@@ -1,0 +1,21 @@
+{
+  "name": "webpackDemo",
+  "version": "1.0.0",
+  "description": "A demo for webpack",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "luwnewei",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^1.13.2"
+  },
+  "dependencies": {
+    "babel-core": "^6.13.2",
+    "babel-loader": "^6.2.5",
+    "css-loader": "^0.23.1",
+    "expose-loader": "^0.7.1",
+    "style-loader": "^0.13.1"
+  }
+}
