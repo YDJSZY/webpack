@@ -7,12 +7,7 @@ require("bower/oclazyload/dist/ocLazyLoad.min.js");
 var jQuery = $ = require("jquery");
 var index = require("./scripts/controllers/index");
 var angular = require("./scripts/vendor/angular");
-var app = angular.module("app",[require('angular-ui-router'), 'oc.lazyLoad']);
-index(app);
-app.controller("indexController",["$scope",function($scope){
-    $scope.index = "This is index page";
-}]);
-
+var app = angular.module("app",[require('angular-ui-router'), 'oc.lazyLoad'])
 app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', function ($stateProvider, $locationProvider, $urlRouterProvider) {
     //$locationProvider.html5Mode(true);
     //$locationProvider.hashPrefix('!');
@@ -23,20 +18,31 @@ app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', functio
             url: '/index',
             templateUrl: './view/index.html',
             controller: 'indexController',
-            /*resolve: {
-                loadIndexController: ['$ocLazyLoad', function($ocLazyLoad) {
-                    // you can lazy load files for an existing module
-                    return $ocLazyLoad.load('./scripts/controllers/index')(app);
-                }]
-            }*/
+            resolve: {
+                loadIndexController: function($q, $ocLazyLoad) {
+                    console.log('state resolve:', 'Index, indexController');
+                    var deferred = $q.defer();
+                    let indexModule = require('./scripts/modules/index');
+                    $ocLazyLoad.load(indexModule);
+                    deferred.resolve();
+                    return deferred.promise;
+                }
+            }
         })
         .state('main', {
             url: '/main',
             templateUrl: './view/main.html',
-            controller: function () {
-                this.main = 'This is main';
-            },
-            controllerAs: 'main'
+            controller: 'mainController',
+            resolve: {
+                loadMainController: function($q, $ocLazyLoad) {
+                    console.log('state resolve:', 'Main, mainController');
+                    var deferred = $q.defer();
+                    let mainModule = require('./scripts/modules/main');
+                    $ocLazyLoad.load(mainModule);
+                    deferred.resolve();
+                    return deferred.promise;
+                }
+            }
         })
 }]);
 

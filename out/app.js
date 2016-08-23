@@ -9,14 +9,9 @@ webpackJsonp([0],[
 	__webpack_require__(11);
 	__webpack_require__(12);
 	var jQuery = $ = __webpack_require__(1);
-	var index = __webpack_require__(21);
-	var angular = __webpack_require__(13);
-	var app = angular.module("app", [__webpack_require__(15), 'oc.lazyLoad']);
-	index(app);
-	app.controller("indexController", ["$scope", function ($scope) {
-	    $scope.index = "This is index page";
-	}]);
-
+	var index = __webpack_require__(13);
+	var angular = __webpack_require__(14);
+	var app = angular.module("app", [__webpack_require__(26), 'oc.lazyLoad']);
 	app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', function ($stateProvider, $locationProvider, $urlRouterProvider) {
 	    //$locationProvider.html5Mode(true);
 	    //$locationProvider.hashPrefix('!');
@@ -25,14 +20,31 @@ webpackJsonp([0],[
 	    $stateProvider.state('index', {
 	        url: '/index',
 	        templateUrl: './view/index.html',
-	        controller: 'indexController'
+	        controller: 'indexController',
+	        resolve: {
+	            loadIndexController: function ($q, $ocLazyLoad) {
+	                console.log('state resolve:', 'Index, indexController');
+	                var deferred = $q.defer();
+	                let indexModule = __webpack_require__(16);
+	                $ocLazyLoad.load(indexModule);
+	                deferred.resolve();
+	                return deferred.promise;
+	            }
+	        }
 	    }).state('main', {
 	        url: '/main',
 	        templateUrl: './view/main.html',
-	        controller: function () {
-	            this.main = 'This is main';
-	        },
-	        controllerAs: 'main'
+	        controller: 'mainController',
+	        resolve: {
+	            loadMainController: function ($q, $ocLazyLoad) {
+	                console.log('state resolve:', 'Main, mainController');
+	                var deferred = $q.defer();
+	                let mainModule = __webpack_require__(18);
+	                $ocLazyLoad.load(mainModule);
+	                deferred.resolve();
+	                return deferred.promise;
+	            }
+	        }
 	    });
 	}]);
 
@@ -427,20 +439,34 @@ webpackJsonp([0],[
 /* 11 */,
 /* 12 */,
 /* 13 */
+/***/ function(module, exports) {
+
+	/**
+	 * Created by Apple on 16/8/22.
+	 */
+	function index($scope, indexFactory) {
+	  $scope.index = "This is index page";
+	  indexFactory.say();
+	}
+
+	module.exports = index;
+
+/***/ },
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
 	 * Created by Apple on 16/8/22.
 	 */
 	if (!global.window.angular) {
-	  __webpack_require__(14);
+	  __webpack_require__(15);
 	}
 	var angular = global.window.angular;
 	module.exports = angular;
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports) {
 
 	/**
@@ -32213,7 +32239,86 @@ webpackJsonp([0],[
 	!window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
 
 /***/ },
-/* 15 */
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Apple on 16/8/23.
+	 */
+	let indexController = __webpack_require__(13);
+	let indexFactory = __webpack_require__(17);
+	let indexModule = angular.module('index', []).factory('indexFactory', indexFactory).controller('indexController', ["$scope", "indexFactory", indexController]);
+
+	module.exports = indexModule;
+
+/***/ },
+/* 17 */
+/***/ function(module, exports) {
+
+	/**
+	 * Created by Apple on 16/8/23.
+	 */
+	function indexFactory() {
+	    return {
+	        "say": function () {
+	            console.log("Index Hello World!!!");
+	        }
+	    };
+	}
+
+	module.exports = indexFactory;
+
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Apple on 16/8/23.
+	 */
+	let mainController = __webpack_require__(19);
+	let mainFactory = __webpack_require__(20);
+	let mainModule = angular.module('main', []).factory('mainFactory', mainFactory).controller('mainController', ["$scope", "mainFactory", mainController]);
+
+	module.exports = mainModule;
+
+/***/ },
+/* 19 */
+/***/ function(module, exports) {
+
+	/**
+	 * Created by Apple on 16/8/22.
+	 */
+	function main($scope, mainFactory) {
+	  $scope.main = "This is main page";
+	  mainFactory.say();
+	}
+
+	module.exports = main;
+
+/***/ },
+/* 20 */
+/***/ function(module, exports) {
+
+	/**
+	 * Created by Apple on 16/8/23.
+	 */
+	function mainFactory() {
+	    return {
+	        "say": function () {
+	            console.log("Main Hello World!!!");
+	        }
+	    };
+	}
+
+	module.exports = mainFactory;
+
+/***/ },
+/* 21 */,
+/* 22 */,
+/* 23 */,
+/* 24 */,
+/* 25 */,
+/* 26 */
 /***/ function(module, exports) {
 
 	/**
@@ -36792,26 +36897,6 @@ webpackJsonp([0],[
 	  .filter('isState', $IsStateFilter)
 	  .filter('includedByState', $IncludedByStateFilter);
 	})(window, window.angular);
-
-/***/ },
-/* 16 */,
-/* 17 */,
-/* 18 */,
-/* 19 */,
-/* 20 */,
-/* 21 */
-/***/ function(module, exports) {
-
-	/**
-	 * Created by Apple on 16/8/22.
-	 */
-	function index(app) {
-	    app.controller("indexController", ["$scope", function ($scope) {
-	        $scope.index = "This is index page";
-	    }]);
-	}
-
-	module.exports = index;
 
 /***/ }
 ]);
