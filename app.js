@@ -5,7 +5,6 @@ require("bower/bootstrap/dist/css/bootstrap.min.css");
 require("bower/bootstrap/dist/js/bootstrap.min.js");
 require("bower/oclazyload/dist/ocLazyLoad.min.js");
 var jQuery = $ = require("jquery");
-var index = require("./scripts/controllers/index");
 var angular = require("./scripts/vendor/angular");
 var app = angular.module("app",[require('angular-ui-router'), 'oc.lazyLoad'])
 app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', function ($stateProvider, $locationProvider, $urlRouterProvider) {
@@ -22,7 +21,7 @@ app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', functio
                 loadIndexController: function($q, $ocLazyLoad) {
                     console.log('state resolve:', 'Index, indexController');
                     var deferred = $q.defer();
-                    let indexModule = require('./scripts/modules/index');
+                    var indexModule = require('./scripts/modules/index');
                     $ocLazyLoad.load(indexModule);
                     deferred.resolve();
                     return deferred.promise;
@@ -37,7 +36,7 @@ app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', functio
                 loadMainController: function($q, $ocLazyLoad) {
                     console.log('state resolve:', 'Main, mainController');
                     var deferred = $q.defer();
-                    let mainModule = require('./scripts/modules/main');
+                    var mainModule = require('./scripts/modules/main');
                     $ocLazyLoad.load(mainModule);
                     deferred.resolve();
                     return deferred.promise;

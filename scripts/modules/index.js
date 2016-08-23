@@ -3,9 +3,11 @@
  */
 let indexController = require('../controllers/index');
 let indexFactory = require('../services/index');
+let requestFactory = require('../services/requestFactory');
 let indexModule = angular
     .module('index', [])
     .factory('indexFactory',indexFactory)
-    .controller('indexController',["$scope","indexFactory",indexController]);
+    .factory('requestFactory',requestFactory)
+    .controller('indexController',["$scope","indexFactory","requestFactory",indexController]);
 
 module.exports = indexModule;

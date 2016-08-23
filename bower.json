@@ -16,10 +16,20 @@
   ],
   "dependencies": {
     "angular": "^1.5.8",
-    "angular-route": "^1.5.8",
     "jquery": "^3.1.0",
     "bootstrap": "^3.3.7",
     "oclazyload": "ocLazyLoad#^1.0.9",
-    "angular-ui-router": "^0.3.1"
+    "angular-ui-router": "^0.3.1",
+    "AdminLTE": "admin-lte#^2.3.6",
+    "angular-ui-select": "^0.18.1",
+    "angular-ui-switch": "^0.1.1",
+    "font-awesome": "*",
+    "ionicons": "*",
+    "iCheck": "*",
+    "ng-file-upload": "^12.0.4",
+    "highcharts": "^4.2.6",
+    "angular-restmod": "^1.1.11",
+    "angular-animate": "1.5.8",
+    "angular-sanitize": "1.5.8"
   }
 }

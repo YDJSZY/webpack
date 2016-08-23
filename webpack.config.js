@@ -1,21 +1,16 @@
 var webpack = require("webpack");
 var ResolverPlugin = require('webpack/lib/ResolverPlugin');
 var path = require("path");
+var plugins = require("./plugins");
 module.exports = {
     entry: {
         app:'./app.js',
-        commons:[
-            './bower_components/jquery/dist/jquery.min.js',
-            './bower_components/angular/angular.min.js',
-            './bower_components/angular-route/angular-route.min.js',
-            './bower_components/bootstrap/dist/js/bootstrap.min.js',
-            './bower_components/oclazyload/dist/ocLazyLoad.min.js'
-        ]
+        commons:plugins
     }, //演示单入口文件
     output: {
     path: path.join(__dirname, 'out'),  //打包输出的路径
     filename: 'app.js',			  //打包后的名字
-    publicPath: "./out/"				//html引用路径，在这里是本地地址。
+    publicPath: "./out/"
     },
     module: {
         loaders: [
