@@ -29,9 +29,12 @@ module.exports = {
     resolve: {
         alias: {
             'bower' : __dirname+'/bower_components',
+            'angular-ui-select': __dirname+'/bower_components/angular-ui-select/dist/select.js',
+            'selectCss':__dirname+'/bower_components/angular-ui-select/dist/select.min.css',
+            'angular-sanitize':__dirname+'/bower_components/angular-sanitize/angular-sanitize.min.js'
         },
         modulesDirectories: ["node_modules", "bower_components"],
-        //root: [path.join(__dirname, "bower_components")]
+        root: [path.join(__dirname, "bower_components")]
     },
     plugins: [
         new ResolverPlugin(
@@ -41,7 +44,7 @@ module.exports = {
             $: "jquery",
             jQuery: "jquery"
         }),
-        new webpack.optimize.CommonsChunkPlugin('commons', 'commons.js')//这是妮第三方库打包生成的文件
+        new webpack.optimize.CommonsChunkPlugin('commons', 'commons.js')//这是第三方库打包生成的文件
     ],
     externals: {
         "angular" : "angular",

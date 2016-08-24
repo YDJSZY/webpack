@@ -6,7 +6,7 @@ require("bower/bootstrap/dist/js/bootstrap.min.js");
 require("bower/oclazyload/dist/ocLazyLoad.min.js");
 var jQuery = $ = require("jquery");
 var angular = require("./scripts/vendor/angular");
-var app = angular.module("app",[require('angular-ui-router'), 'oc.lazyLoad'])
+var app = angular.module("app",[require('angular-ui-router'),'oc.lazyLoad'])
 app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', function ($stateProvider, $locationProvider, $urlRouterProvider) {
     //$locationProvider.html5Mode(true);
     //$locationProvider.hashPrefix('!');
@@ -21,9 +21,14 @@ app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', functio
                 loadIndexController: function($q, $ocLazyLoad) {
                     console.log('state resolve:', 'Index, indexController');
                     var deferred = $q.defer();
-                    var indexModule = require('./scripts/modules/index');
-                    $ocLazyLoad.load(indexModule);
-                    deferred.resolve();
+                    var indexModule;
+                    require(['angular-sanitize','angular-ui-select','selectCss'],function(require){
+                        indexModule = require('./scripts/modules/index');
+                        $ocLazyLoad.load({
+                            name: indexModule.name,
+                        });
+                        deferred.resolve(indexModule.controller);
+                    })
                     return deferred.promise;
                 }
             }
@@ -38,7 +43,7 @@ app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', functio
                     var deferred = $q.defer();
                     var mainModule = require('./scripts/modules/main');
                     $ocLazyLoad.load(mainModule);
-                    deferred.resolve();
+                    deferred.resolve("success!!!");
                     return deferred.promise;
                 }
             }

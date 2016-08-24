@@ -1,1 +1,11 @@
 {{index}}
+<div class="row">
+    <div class="col-sm-6">
+        <ui-select data-ng-model="order_type" id="id_order_types" theme="bootstrap">
+            <ui-select-match placeholder="业务单类型">{{$select.selected}}</ui-select-match>
+            <ui-select-choices repeat="order_type in order_types | filter: $select.search">
+                <div ng-bind-html="trustAsHtml((order_type | highlight: $select.search))"></div>
+            </ui-select-choices>
+        </ui-select>
+    </div>
+</div>

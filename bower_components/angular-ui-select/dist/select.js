@@ -1,4 +1,5 @@
 /*!
+/*!
  * ui-select
  * http://github.com/angular-ui/ui-select
  * Version: 0.18.1 - 2016-07-10T00:18:10.535Z
